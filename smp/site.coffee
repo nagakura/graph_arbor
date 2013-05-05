@@ -51,7 +51,7 @@
         )
         
         sys.eachNode((node, pt)->
-          w = Math.max(60, 60+gfx.textWidth(node.name) )
+          w = Math.max(20, 20+gfx.textWidth(node.name) )
           if (node.data.alpha is 0)
             return
           if (node.data.shape is 'dot')
@@ -141,7 +141,7 @@
             if (not nearest.node)
               return false
 
-            if (nearest.node.data.shape isnt 'dot')
+            if (nearest.node.data.shape not 'dot')
               selected = if (nearest.distance < 50) then nearest else null
               if (selected)
                  dom.addClass('linkable')
