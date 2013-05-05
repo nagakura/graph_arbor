@@ -59,7 +59,7 @@
           sys.eachNode(function(node, pt) {
             var w;
 
-            w = Math.max(20, 20 + gfx.textWidth(node.name));
+            w = Math.max(60, 60 + gfx.textWidth(node.name));
             if (node.data.alpha === 0) {
               return;
             }
@@ -185,7 +185,7 @@
               if (!nearest.node) {
                 return false;
               }
-              if (nearest.node.data.shape(!'dot')) {
+              if (nearest.node.data.shape !== 'dot') {
                 selected = nearest.distance < 50 ? nearest : null;
                 if (selected) {
                   dom.addClass('linkable');
