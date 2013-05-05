@@ -11,12 +11,10 @@ app.get '/', (req, res) ->
 
 (function() {
 
-  exports.index = function(req, res) {
-    if (req != null) {
-      return res.render(req, {
-        title: 'index'
-      });
-    }
+  exports.index = function(res, req) {
+    return res.render('index', {
+      title: index
+    });
   };
 
 }).call(this);
