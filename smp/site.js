@@ -59,14 +59,14 @@
           sys.eachNode(function(node, pt) {
             var w;
 
-            w = Math.max(20, 20 + gfx.textWidth(node.name));
+            w = Math.max(node.data.important, node.data.important + gfx.textWidth(node.name));
             if (node.data.alpha === 0) {
               return;
             }
-            if (node.data.shape === 'dot') {
+            if (node.data.shape !== 'dot') {
               gfx.oval(pt.x - w / 2, pt.y - w / 2, w, w, {
-                fill: node.data.color,
-                alpha: node.data.alpha
+                fill: "orange",
+                alpha: 1
               });
               gfx.text(node.name, pt.x, pt.y + 7, {
                 color: "white",
@@ -177,7 +177,7 @@
           _section = null;
           handler = {
             moved: function(e) {
-              var pos;
+              var pos, _base;
 
               pos = $(canvas).offset();
               _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
@@ -185,7 +185,7 @@
               if (!nearest.node) {
                 return false;
               }
-              if (nearest.node.data.shape(!'dot')) {
+              if (typeof (_base = nearest.node.data).shape === "function" ? _base.shape(!'dot') : void 0) {
                 selected = nearest.distance < 50 ? nearest : null;
                 if (selected) {
                   dom.addClass('linkable');
@@ -268,8 +268,32 @@
       return that;
     };
     return $(document).ready(function() {
-      var CLR, sys, theUI;
+      var CLR, data, sys, testdata, theUI;
 
+      testdata = {
+        a: {
+          title: "a",
+          important: 100,
+          relative: ["b", "c"]
+        },
+        b: {
+          title: "b",
+          important: 20,
+          relative: ["a"]
+        },
+        c: {
+          title: "c",
+          important: 30,
+          relative: ["a"]
+        }
+      };
+      data = {
+        aa: {
+          color: "red",
+          shape: "dot",
+          alpha: 1
+        }
+      };
       CLR = {
         branch: "#b2b19d",
         code: "orange",
@@ -277,26 +301,10 @@
         demo: "#a7af00"
       };
       theUI = {
-        nodes: {
-          "aa": {
-            color: "red",
-            shape: "dot",
-            alpha: 0.6
-          },
-          "bb": {
-            color: "orange",
-            shape: "dot",
-            alpha: 1
-          }
-        },
-        edges: {
-          "aa": {
-            "bb": {
-              lenght: 6
-            }
-          }
-        }
+        nodes: testdata
       };
+      sys = arbor.ParticleSystem(1000, 600, 0.5);
+      sys.addEdge("a", "b");
       /*
       theUI =
         nodes:

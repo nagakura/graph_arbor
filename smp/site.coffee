@@ -1,5 +1,5 @@
+(($) ->
 
-(($)->
   Renderer = (elt)->
     dom = $(elt)
     canvas = dom.get(0)
@@ -51,11 +51,14 @@
         )
         
         sys.eachNode((node, pt)->
-          w = Math.max(20, 20+gfx.textWidth(node.name) )
+          #w = Math.max(60, 60+gfx.textWidth(node.name) )
+          w = Math.max(node.data.important, node.data.important+gfx.textWidth(node.name) )
           if (node.data.alpha is 0)
             return
-          if (node.data.shape is 'dot')
-            gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:node.data.color, alpha:node.data.alpha})
+          #if (node.data.shape is 'dot')
+            #gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:node.data.color, alpha:node.data.alpha})
+          if (node.data.shape isnt 'dot')
+            gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:"orange", alpha:1})
             gfx.text(node.name, pt.x, pt.y+7, {color:"white", align:"center", font:"Arial", size:12})
             gfx.text(node.name, pt.x, pt.y+7, {color:"white", align:"center", font:"Arial", size:12})
           else
@@ -141,7 +144,7 @@
             if (not nearest.node)
               return false
 
-            if (nearest.node.data.shape not 'dot')
+            if (nearest.node.data.shape? not 'dot')
               selected = if (nearest.distance < 50) then nearest else null
               if (selected)
                  dom.addClass('linkable')
@@ -211,6 +214,26 @@
   
   
   $(document).ready(()->
+
+
+    testdata=
+      a:
+        title: "a"
+        important: 100
+        relative:["b", "c"]
+      b:
+        title: "b"
+        important: 20
+        relative:["a"]
+      c:
+        title: "c"
+        important: 30
+        relative:["a"]
+    
+    data =
+      aa:{color:"red", shape:"dot", alpha:1}
+    
+
     CLR =
       branch:"#b2b19d"
       code:"orange"
@@ -218,11 +241,7 @@
       demo:"#a7af00"
     theUI =
       nodes:
-        "aa":{color:"red", shape:"dot", alpha:0.6}
-        "bb":{color:"orange", shape:"dot", alpha:1}
-      edges:
-        "aa":
-          "bb":{lenght:6}
+       testdata
 
     
     ###
