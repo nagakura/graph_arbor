@@ -273,7 +273,7 @@
       testdata = {
         a: {
           title: "a",
-          important: 100,
+          important: 80,
           relative: ["b", "c"]
         },
         b: {
@@ -301,10 +301,28 @@
         demo: "#a7af00"
       };
       theUI = {
-        nodes: testdata
+        nodes: testdata,
+        edges: {
+          a: {
+            b: {
+              length: 1
+            },
+            c: {
+              length: 5
+            }
+          },
+          b: {
+            a: {
+              length: 1
+            }
+          },
+          c: {
+            a: {
+              length: 5
+            }
+          }
+        }
       };
-      sys = arbor.ParticleSystem(1000, 600, 0.5);
-      sys.addEdge("a", "b");
       /*
       theUI =
         nodes:

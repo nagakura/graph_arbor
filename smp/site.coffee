@@ -219,7 +219,7 @@
     testdata=
       a:
         title: "a"
-        important: 100
+        important: 80
         relative:["b", "c"]
       b:
         title: "b"
@@ -233,6 +233,7 @@
     data =
       aa:{color:"red", shape:"dot", alpha:1}
     
+      
 
     CLR =
       branch:"#b2b19d"
@@ -241,7 +242,15 @@
       demo:"#a7af00"
     theUI =
       nodes:
-       testdata
+        testdata
+      edges:
+        a:
+          b:{length:1}
+          c:{length:5}
+        b:
+          a:{length:1}
+        c:
+          a:{length:5}
 
     
     ###
