@@ -59,12 +59,14 @@
             #gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:node.data.color, alpha:node.data.alpha})
           if (node.data.shape isnt 'dot')
             gfx.oval(pt.x-w/2, pt.y-w/2, w, w, {fill:"orange", alpha:1})
-            gfx.text(node.name, pt.x, pt.y+7, {color:"white", align:"center", font:"Arial", size:12})
-            gfx.text(node.name, pt.x, pt.y+7, {color:"white", align:"center", font:"Arial", size:12})
+            gfx.text(node.data.title, pt.x, pt.y+7, {color:"black", align:"center", font:"Arial", size:12})
+            gfx.text(node.data.title, pt.x, pt.y+7, {color:"black", align:"center", font:"Arial", size:12})
+          ###
           else
             gfx.rect(pt.x-w/2, pt.y-8, w, 20, 4, {fill:node.data.color, alpha:node.data.alpha})
             gfx.text(node.name, pt.x, pt.y+9, {color:"white", align:"center", font:"Arial", size:12})
             gfx.text(node.name, pt.x, pt.y+9, {color:"white", align:"center", font:"Arial", size:12})
+          ###
         )
         that._drawVignette()
       
@@ -218,16 +220,20 @@
 
     testdata=
       a:
-        title: "a"
+        title: "メンバー2013"
         important: 80
-        relative:["b", "c"]
+        relative:["b", "c", "d"]
       b:
-        title: "b"
-        important: 20
+        title: "geta6"
+        important: 50
         relative:["a"]
       c:
-        title: "c"
-        important: 30
+        title: "山口尚人"
+        important: 20
+        relative:["a"]
+      d:
+        title: "shokai"
+        important: 60
         relative:["a"]
     
     data =
@@ -247,10 +253,13 @@
         a:
           b:{length:1}
           c:{length:5}
+          d:{length:3}
         b:
           a:{length:1}
         c:
           a:{length:5}
+        d:
+          a:{length:3}
 
     
     ###
